@@ -27,13 +27,13 @@
             
             </c:forEach>
             </table>
-            <form style="margin-top: 40px;  " action="addChapter" method="get">
+            <form style="margin-top: 40px;  " action="addChapter" method="post" enctype="multipart/form-data">
                 <h2 style="font-weight: bold; font-size: 30px" > ADD NEW CHAPTER</h2>
                 <input value="${lightnovel.nid}" name="nid" hidden />
                  <br>
                  name of chapter <input type="text" name="name"  />
                  <br><!-- comment -->
-                 file of chapter <input name="file"/>
+                 file of chapter <input name="file" type="file"/>
                  <br>
                  <input type="submit" value="post new Chapter"/>
             </form>

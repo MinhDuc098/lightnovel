@@ -13,13 +13,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="addLightnovel" method="post">
+        <form action="addLightnovel" method="post" enctype="multipart/form-data">
             
             enter name: <input name="name" required />
             <br>
             otherName: <input name="othername" />
             <br><!-- comment -->
-            image: <input name="img" required/>
+            image: <input name="img" type="file" required/>
             <br><!-- comment -->
             describle: <textarea name="des">  </textarea>
             <br><!-- comment -->

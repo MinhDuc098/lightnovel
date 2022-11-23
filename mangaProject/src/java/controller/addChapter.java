@@ -10,16 +10,25 @@ import Dal.Lightnovel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 /**
  *
  * @author AS
  */
 @WebServlet(name="addChapter", urlPatterns={"/addChapter"})
+@MultipartConfig(
+  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+  maxFileSize = 1024 * 1024 * 10,      // 10 MB
+  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+)
 public class addChapter extends HttpServlet {
    
     /** 
@@ -83,11 +92,18 @@ public class addChapter extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
  String name = request.getParameter("name");
-        String file = request.getParameter("file");
+        
+        Part part = request.getPart("file");
+        String fileName = part.getSubmittedFileName();
+        
         String nid_raw = request.getParameter("nid");
         Chapter c = new Chapter();
         Lightnovel L = new Lightnovel();
         try{
+        part.write("E:\\STUDT SE FORTH TERM\\PRJ301\\lightnovel\\mangaProject\\web\\lightnovel\\"+fileName);
+        String file = "lightnovel/"+fileName;
+            
+        
         int nid = Integer.parseInt(nid_raw);
         c.insertChapter(name, file, nid);
         L.updateDate(nid);

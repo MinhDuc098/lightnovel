@@ -43,7 +43,7 @@ public class Comment extends DBContext {
             p.setInt(1, id);
             ResultSet r = p.executeQuery();
             if (r.next()) {
-                account acc = new account(id, r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"));
+                account acc = new account(id, r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"),r.getString("img"));
                 return acc;
             }
         } catch (SQLException e) {

@@ -14,18 +14,22 @@ public class account {
     private String pass;
     private int isAdmin,isUser;
     private String email;
+    private String img;
 
     public account() {
     }
 
-    public account(int uID, String user, String pass, int isAdmin, int isUser, String email) {
+    public account(int uID, String user, String pass, int isAdmin, int isUser, String email, String img) {
         this.uID = uID;
         this.user = user;
         this.pass = pass;
         this.isAdmin = isAdmin;
         this.isUser = isUser;
         this.email = email;
+        this.img = img;
     }
+
+    
 
     public int getuID() {
         return uID;
@@ -73,6 +77,14 @@ public class account {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     
 }

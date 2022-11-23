@@ -25,7 +25,7 @@ public class Account extends DBContext {
            pt.setString(2, pass);
            ResultSet r = pt.executeQuery();
            if(r.next()){
-               account a = new account(r.getInt("uID"), r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"));
+               account a = new account(r.getInt("uID"), r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"),r.getString("img"));
              return a;
            }
           
@@ -38,13 +38,14 @@ public class Account extends DBContext {
    
    // tao 1 acc moi cho user
    public void insertAccount(String user, String pass, String email){
-       String sql = "insert into Account([user],pass,isAdmin,isUser,email)\n"
+       String sql = "insert into Account([user],pass,isAdmin,isUser,email,img)\n"
                 + "values(?,?,0,1,?)";
        try{
            PreparedStatement p =connection.prepareStatement(sql);
            p.setString(1, user);
            p.setString(2, pass);
            p.setString(3, email);
+           p.setString(4, "");
            p.executeUpdate();
        }
        catch(Exception e){
@@ -54,13 +55,14 @@ public class Account extends DBContext {
    
    // tao account cho admin
    public void insertAdminAccount(String user, String pass, String email){
-       String sql = "insert into Account([user],pass,isAdmin,isUser,email)\n"
-                + "values(?,?,1,0,?)";
+       String sql = "insert into Account([user],pass,isAdmin,isUser,email,img)\n"
+                + "values(?,?,1,0,?,?)";
        try{
            PreparedStatement p =connection.prepareStatement(sql);
            p.setString(1, user);
            p.setString(2, pass);
            p.setString(3, email);
+           p.setString(4, "");
            p.executeUpdate();
        }
        catch(Exception e){
@@ -77,7 +79,7 @@ public class Account extends DBContext {
            
            ResultSet r = pt.executeQuery();
            if(r.next()){
-               account a = new account(r.getInt("uID"), r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"));
+               account a = new account(r.getInt("uID"), r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"),r.getString("img"));
              return a;
            }
           
@@ -99,7 +101,7 @@ public class Account extends DBContext {
            
            ResultSet r = pt.executeQuery();
            while(r.next()){
-               account a = new account(r.getInt("uID"), r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"));
+               account a = new account(r.getInt("uID"), r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"),r.getString("img"));
               list.add(a);
            }
           
@@ -117,7 +119,7 @@ public class Account extends DBContext {
            p.setInt(1, uID);
            ResultSet r = p.executeQuery();
            if(r.next()){
-               account a = new account(r.getInt("uID"), r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"));
+               account a = new account(r.getInt("uID"), r.getString("user"), r.getString("pass"), r.getInt("isAdmin"), r.getInt("isUser"), r.getString("email"),r.getString("img"));
                return a;
            }
                
@@ -128,7 +130,18 @@ public class Account extends DBContext {
        }
        return null;
    }
-   
+   public void insertAvartar(int id, String img){
+       String sql = "update Account set img = ? where [uID] = ?";
+       try{
+           PreparedStatement p = connection.prepareStatement(sql);
+           p.setString(1, img);
+           p.setInt(2, id);
+           p.executeUpdate();
+       }
+       catch(Exception e){
+           System.out.println(e);
+       }
+   }
    
 }
 

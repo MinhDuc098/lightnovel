@@ -10,7 +10,24 @@
     
 <div class="container row"  style="background-color: rgba(137, 137, 40, 0.837);margin-left: auto; margin-right: auto; margin-top: 20px;padding-left: 0px;padding-right: 0px;" >
     <div  class="col-md-3" style="padding: 20px;" >
-    <img src="img/Lancer.(Fate.Grand.Order).full.2352882.jpg" alt="" class="img-fluid rounded-circle" >
+    <c:if test="${sessionScope.user.img == '' }">
+            <img src="img/Lancer.(Fate.Grand.Order).full.2352882.jpg" alt="" class="img-fluid rounded-circle" >
+
+    </c:if>
+    <c:if test="${sessionScope.user.img != ''}">
+        <img src="${sessionScope.user.img}" class="img-fluid rounded-circle" />
+    </c:if>
+    
+     <form action="uploadImg" enctype="multipart/form-data" method="post" id="avatar">
+        <input value="${user.uID}" hidden/>
+    <input style="" class="form-control" type="file" name="UserImg" onchange="changeImg()" /> 
+    </form>
+        <script>
+            function changeImg(){
+                document.getElementById("avatar").submit();
+            }
+            
+        </script>
     </div>
 
     <div class="col-md-9">
